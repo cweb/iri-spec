@@ -56,7 +56,7 @@
   <middle>
 
     <section title="Introduction" anchor="introduction">
-      <t>Some members of the implementation community have been confused about the rules and algorithms for processing Internationalized Resource Identifiers (IRIs).  This document claries these matters to improve interoperability.</t>
+      <t>Some members of the implementation community have been confused about the rules and algorithms for processing Internationalized Resource Identifiers (IRIs).  This document clarifies these matters to improve interoperability.</t>
     </section>
 
     <section title="Sources" anchor="sources">
