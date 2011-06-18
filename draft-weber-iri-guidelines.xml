@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc compact="yes"?>
 <?rfc iprnotified="no" ?>
 <?rfc strict="yes"?>
@@ -69,48 +70,49 @@
           <t hangText='4:'>Change proposal for ISSUE-56, http://lists.w3.org/Archives/Public/public-html/2010Jul/0036.html <xref target='4'/></t>
           <t hangText='5:'>URIs, URLs, and URNs: Clarifications and Recommendations 1.0, http://www.w3.org/TR/uri-clarification/ <xref target='5'/></t>
           <t hangText='6:'>Browser Security Handbook: Uniform Resource Locators, http://code.google.com/p/browsersec/wiki/Part1#Uniform_Resource_Locators <xref target='6'/></t>
-          <t hangText='7:'>BIDI URL Display, https://docs.google.com/document/d/1c8-svx7og0qBUfGBobw7LYfOcNeDVPYbNVMNpSqYCFo/edit?hl=en&pli=1 <xref target='7'/></t>
+          <t hangText='7:'>BIDI URL Display, https://docs.google.com/document/d/1c8-svx7og0qBUfGBobw7LYfOcNeDVPYbNVMNpSqYCFo/edit?hl=en <xref target='7'/></t>
         </list>
       </t>
     </section>
 
     <section title="Parsing Unicode Strings into IRI Components" anchor="parse">
-      <t>This section describes the process of parsing a Unicode string into IRI components.</t>
+      <t>This section describes the process of parsing an arbitrary Unicode string into IRI components.</t>
       <t>(TODO: This should address both valid and invalid arbitrary strings)</t>
-      <t>(TODO: describe error handling)</t>
+      <t>(TODO: Describe error handling)</t>
       <t>
         <list style='numbers'>
           <!-- STEP 1 -->
           <t>
-            Action: Remove leading and trailing ^[whitespace | space characters | control characters] from the string.
+            Remove leading and trailing whitespace and control characters from the string.
             <vspace/>
             Result: Leading and trailing instances of space (U+0020), CR (U+000A), LF (U+000D), and TAB (U+0009) characters are removed.
             <vspace/>
-            Reference: All referenced sources agree on this step.  See Section 7.2 of <xref target='1'/> for details.
+            Reference: Section 7.2 of <xref target='1'/> for details.
           </t>
           <!-- STEP 2 -->
           <t>
-            Action: If more than one reference allowed, split the string into separate strings on \s+, else look for embedded whitespace and either remove it or replace it with a single %20, depending on context.
+            Action: If more than one reference is allowed, split the string into separate strings on blocks of contiguous whitespace.  If more than one reference is not allowed, either remove blocks of contiguous whitespace or replace them with a single percent-encoded U+0020 SPACE, written as "%20", depending on what is required for the current context.
             <vspace/>
+            Result: A string is split into multiple references on whitespace, or else whitespace is either removed or replaced with a single %20.
             Reference: Mentioned only in <xref target='4'/>.
           </t>
           <!-- STEP 3 -->
           <t>
-            Action: Determine if input string is in a Unicode-based character encoding such as UTF-8 or UTF-16.  If not in a Unicode-based encoding form, then transcode to UTF-8 (note: MUST be UTF-8).
+            Action: Determine if input string is in a Unicode-based character encoding such as UTF-8 or UTF-16.  If not in a Unicode-based encoding form, then transcode to UTF-8.
             <vspace/>
-            Reference: Mentioned only in Section 3.1 of <xref target='1'/>.
+            Reference: Section 3.1 of <xref target='1'/>.
           </t>
           <!-- STEP 4 -->
           <t>
-            Normalize the string using Unicode NFC.
+            Normalize the string using Unicode Normalization Form C <xref target='8'/>.
             <vspace/>
-            Reference: Mentioned only in Section 3.1 of <xref target='1'/>.
+            Reference: Section 3.1 of <xref target='1'/>.
           </t>
           <!-- STEP 5 -->
           <t>
             Parse the IRI into its seven major components using rules defined by 3896 (using an algorithm equivalent to RFC3986 Appendix B) but with updated ABNF of 3987.
             <vspace/>
-            Reference: Mentioned only in Section 3.2 of <xref target='1'/>.
+            Reference: Section 3.2 of <xref target='1'/>.
             <vspace/>
             <!-- TODO -->
             [TODO: This seems to be the primary area of concerns for HTML developers]
@@ -138,7 +140,7 @@
               <t>
                 QUERY (i.e., iquery)
                 <vspace/>
-                Reference: See Section 3.5 of <xref target='1'/>.
+                Reference: Section 3.5 of <xref target='1'/>.
                 <vspace/>
 ((NOTE: SEE ISSUES LIST)) For compatibility with existing deployed HTTP infrastructure, the following special case applies for schemes "http" and "https" and IRIs whose origin has a document charset other than one which is UCS-based (e.g., UTF-8 or UTF-16).  In such a case, the "query" component of an IRI is mapped into a URI by using the document charset rather than UTF-8 as the binary representation before pct-encoding.  This mapping is not applied for any other scheme or component.
               </t>
@@ -150,7 +152,7 @@
           <t>
             Percent-encode IRI components (this is done for the sake of interoperability).  For each character which is not allowed anywhere in a valid URI, apply the following steps.
             <vspace/>
-            Reference: See Section 3.5 of <xref target='1'/>.
+            Reference: Section 3.5 of <xref target='1'/>.
             <list style='symbols'>
               <t>
               Action: Convert to UTF-8, i.e., convert the character to a sequence of one or more octets using UTF-8 [RFC3629].
@@ -265,7 +267,7 @@
 <format type='HTML' target='http://code.google.com/p/browsersec/wiki/Part1#Uniform_Resource_Locators'/>
 </reference>
 
-<reference anchor='7' target='https://docs.google.com/document/d/1c8-svx7og0qBUfGBobw7LYfOcNeDVPYbNVMNpSqYCFo/edit?hl=en&pli=1'>
+<reference anchor='7' target='https://docs.google.com/document/d/1c8-svx7og0qBUfGBobw7LYfOcNeDVPYbNVMNpSqYCFo/edit?hl=en'>
 <front>
 <title>URLs</title>
 <author initials='M.' surname='Davis' fullname='Mark Davis'>
@@ -273,7 +275,19 @@
 </author>
 <date day='5' month='May' year='2011'/>
 </front>
-<format type='HTML' target='https://docs.google.com/document/d/1c8-svx7og0qBUfGBobw7LYfOcNeDVPYbNVMNpSqYCFo/edit?hl=en&pli=1'/>
+<format type='HTML' target='https://docs.google.com/document/d/1c8-svx7og0qBUfGBobw7LYfOcNeDVPYbNVMNpSqYCFo/edit?hl=en'/>
+</reference>
+
+<reference anchor='8' target='http://www.unicode.org/unicode/reports/tr15/tr15-23.html'>
+<front>
+<title>URLs</title>
+<author initials='M.' surname='Davis' fullname='Mark Davis'></author>
+<author initials='M.' surname='Duerst' fullname='Martin Duerst'>
+    <organization>Google</organization>
+</author>
+<date day='17' month='April' year='2003'/>
+</front>
+<format type='HTML' target='http://www.unicode.org/unicode/reports/tr15/tr15-23.html'/>
 </reference>
 
     </references>
