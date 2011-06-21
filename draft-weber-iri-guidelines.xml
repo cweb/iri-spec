@@ -83,9 +83,7 @@
         <list style='numbers'>
           <!-- STEP 1 -->
           <t>
-            Remove leading and trailing whitespace and control characters from the string.
-            <vspace/>
-            Result: Leading and trailing instances of space (U+0020), CR (U+000A), LF (U+000D), and TAB (U+0009) characters are removed.
+            Remove leading and trailing instances of space (U+0020), CR (U+000A), LF (U+000D), and TAB (U+0009) characters from the string.
             <vspace/>
             Reference: Section 7.2 of <xref target='1'/> for details.
           </t>
@@ -116,6 +114,10 @@
             <vspace/>
             <!-- TODO -->
             [TODO: This seems to be the primary area of concerns for HTML developers]
+            [NOTE: Call out Special Case?: The U+005C should be either percent-encoded or converted to U+002F.
+            
+            Of course, folks who want to name such files will want to use the
+            escaped form of \ in order for their site to work in other browsers.
             <vspace/>
             In addition, perform the following additional steps where they exist...
             <list style='symbols'>
