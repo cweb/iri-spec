@@ -146,7 +146,8 @@
       
       <section title="Identify the authority" anchor="authority">
         <t>
-        The URI authority component may contain userinfo, a host, and a port.  If the current string does not begin with the two characters "//" U+002F U+002F then the string is not an authority and may be handled as a path sub-component.  </t>
+        The URI authority component may contain userinfo, a host, and a port.  If the current string does not begin with the two characters "//" U+002F U+002F then the string is not an authority and may be handled as a path sub-component.  
+        </t>
 		<t>
 			<list style="symbols">
 			  <t>Continue to "Identify the path"</t>
@@ -156,6 +157,7 @@
 		<t>
         <vspace/>
         Consume up to the first occurrence of any one of the authority's terminating characters "/" U+002F, "?" U+003F, "#" U+0023, or the end of the string.
+        </t>
         <t>
         Given an input string ireg-part, SHOULD convert the ireg-part component to percent-encoding using step 6 below.
         <vspace/>
