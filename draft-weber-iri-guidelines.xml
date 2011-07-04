@@ -48,10 +48,12 @@
     <section title="Terminology" anchor="terminology">
       <t>This section defines the terminology used in this document.</t>
       <t>reference-string
-        <t>The original and unprocessed input string being considered as an IRI reference.</t>
+	      <vspace/>
+	      The original and unprocessed input string being considered as an IRI reference.
       </t>
       <t>pre-processed-reference-string
-        <t>The reference-string that has been through the pre-processing steps.</t>
+	      <vspace/>
+	      The reference-string that has been through the pre-processing steps.
       </t>
     </section>
 
@@ -276,8 +278,6 @@
             </list>
 		</t>
 		</section>
-            
-      <t>At this point the IRI string and components should be canonicalized.</t>
     </section>
 
     <section title="Security Considerations" anchor="security">
