@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc compact="yes"?>
 <?rfc iprnotified="no" ?>
 <?rfc strict="yes"?>
@@ -83,20 +82,20 @@
           </t>
           <!-- STEP 2 -->
           <t>
-            If more than one reference is allowed, split the string into substrings on blocks of contiguous whitespace.  Each of one of these substrings is an IRI and will be processed individually.  If more than one reference is not allowed, either remove blocks of contiguous whitespace or replace them with a single percent-encoded U+0020 SPACE, written as "%20", depending on what is required for the current context.
+            If more than one reference is allowed, split the string into substrings on blocks of contiguous whitespace.  Each of one of these substrings is an independent reference-string and will be processed individually.  If more than one reference is not allowed, either remove blocks of contiguous whitespace or replace them with a single percent-encoded U+0020 SPACE, written as "%20", depending on what is required for the current context.
             <vspace/>
             Reference: Mentioned in <xref target='4'/>.
           </t>
           <!-- STEP 3 -->
           <t>
-            Transcode the input string to the UTF-8 encoding.
+            If the current string is not already in the UTF-8 encoding, transcode the string to the UTF-8 encoding.
             <vspace/>
             Reference: Section 3.1 of <xref target='1'/>.
             <vspace/>
             TODO SHOULD transcode to UTF-8, MAY transcode to another Unicode encoding such as UTF-16?
           </t>
           <!-- STEP 4 -->
-          <t>Replace all entity references with the corresponding character.</t>
+          <t>Replace each entity references with its corresponding character.</t>
           <!-- STEP 5 -->
           <t>
             Normalize the Unicode-encoded string using Unicode Normalization Form C <xref target='8'/>.
@@ -207,22 +206,22 @@
 		<t>Percent-encode all characters present from the ucschar list.</t>
 	    <t>If the path contains any characters not allowed by the ABNF of RFC3987 Section 2.2 or Section 7.2 then replace those characters with their percent-encoding. </t>
 	    <t>This is the path.</t>
-	    <t>If the terminating character was "?" then process the remaining string including the beginning "?" according to "Identify the query".</t>
-	    <t>If the terminating character was "#" then process the remaining string including the beginning "#" according to "Identify the fragment".</t>
+	    <t>If the terminating character was "?" then process the remaining string including the leading "?" according to "Identify the query".</t>
+	    <t>If the terminating character was "#" then process the remaining string including the leading "#" according to "Identify the fragment".</t>
 	    <t>TODO: Handling of special characters "/" and "\".</t>
       </section>
       
       <section title="Identify the query" anchor="query">
-		<t>Consume the remaining string starting with the beginning "?" and up to but not including the first occurrence of "#" or the end of the string.</t>
+		<t>Consume the remaining string starting with the leading "?" and up to but not including the first occurrence of "#" or the end of the string.</t>
 		<t>Percent-encode all characters present from the ucschar list.</t>
 		<t>If the path contains any characters not allowed by the ABNF of RFC3987 Section 2.2 or the lists in Section 7.2 then replace those characters with their percent-encoding. </t>
 		<t>This is the query component.</t>
-	    <t>If the terminating character was "#" then process the remaining string including the beginning "#" according to "Identify the fragment".</t>
+	    <t>If the terminating character was "#" then process the remaining string including the leading "#" according to "Identify the fragment".</t>
 	    <t>TODO: Handling of special characters "&amp;", "?", "=", and "/"</t>
       </section>
       
       <section title="Identify the fragment" anchor="fragment">
-        <t>Consume the remaining string starting with the beginning "#" and to the end of the string.  </t>
+        <t>Consume the remaining string starting with the leading "#" and to the end of the string.  </t>
 		<t>Percent-encode all characters present from the ucschar list.</t>
 		<t>This is the fragment.</t>
 	    <t>TODO: Handling of special characters "?" and "/"</t>
@@ -299,7 +298,7 @@
 
     <references title="Informative References">
 
-<reference anchor='1'>
+<reference anchor='1' target="http://trac.tools.ietf.org/html/draft-ietf-iri-3987bis-05">
 <front>
 <title>Internationalized Resource Identifiers (IRIs)</title>
 <author initials='M' surname='Duerst' fullname='Martin Duerst'>
@@ -319,7 +318,7 @@
         target='http://www.ietf.org/internet-drafts/draft-ietf-iri-3987bis-05.txt' />
 </reference>
 
-<reference anchor='2'>
+<reference anchor='2' target="http://tools.ietf.org/html/draft-abarth-url-01">
 <front>
 <title>How Browsers Process URLs</title>
 <author initials='A' surname='Barth' fullname='Adam Barth'>
@@ -381,7 +380,7 @@
 
 <reference anchor='7' target='https://docs.google.com/document/d/1c8-svx7og0qBUfGBobw7LYfOcNeDVPYbNVMNpSqYCFo/edit?hl=en'>
 <front>
-<title>URLs</title>
+<title>Revision of UBA for improved display of URL/IRIs</title>
 <author initials='M.' surname='Davis' fullname='Mark Davis'>
     <organization>Google</organization>
 </author>
