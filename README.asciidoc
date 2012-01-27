@@ -1,0 +1,12 @@
+iri-spec
+========
+Chris Weber <chris@lookout.net>
+:Author initials: CLW
+:toc:
+:icons:
+:numbered:
+:website: http://www.lookout.net
+
+iri-spec is an Internet Draft attempting to describe the process of parsing
+an IRI (Internationalized Resource Identifier), especially as it relates to 
+Web browsers. IRIs are defined in RFC 3987bis, see <http://tools.ietf.org/wg/iri/>.
